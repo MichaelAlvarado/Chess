@@ -1,0 +1,5 @@
+package ChessPieces;
+
+public interface Piece {
+
+}

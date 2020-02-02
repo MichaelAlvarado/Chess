@@ -1,0 +1,14 @@
+package main;
+
+import ChessPieces.ChessBoard;
+
+public class launch {
+
+	public static void main(String[] args) {
+		ChessBoard chess = new ChessBoard();
+		chess.printBoard();
+		chess.moveTest(3, 2, 3, 4);
+		chess.printBoard();
+	}
+
+}
