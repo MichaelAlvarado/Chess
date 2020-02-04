@@ -1,9 +1,0 @@
-package ChessPieces;
-
-public interface Piece {
-	
-	void move();
-	int xPos();
-	int yPos();
-	
-}
