@@ -3,10 +3,12 @@ package ChessPieces;
 public class King implements Piece {
 	
 	private int x, y;
-	
-	public King(int x, int y) {
+	private ChessBoard board;
+
+	public King(ChessBoard board, int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.board = board;
 	}
 	
 	@Override

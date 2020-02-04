@@ -3,10 +3,12 @@ package ChessPieces;
 public class Knight implements Piece {
 	
 	private int x, y;
-	
-	public Knight(int x, int y) {
+	private ChessBoard board;
+
+	public Knight(ChessBoard board, int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.board = board;
 	}
 	
 	@Override

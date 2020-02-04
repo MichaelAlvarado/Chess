@@ -3,10 +3,13 @@ package ChessPieces;
 public class Bishop implements Piece {
 	
 	private int x, y;
-	
-	public Bishop(int x, int y) {
+	private ChessBoard board;
+
+	public Bishop(ChessBoard board, int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.board = board;
+		
 	}
 	
 	@Override

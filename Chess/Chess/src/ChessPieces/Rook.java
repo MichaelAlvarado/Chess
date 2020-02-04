@@ -3,10 +3,12 @@ package ChessPieces;
 public class Rook implements Piece {
 	
 	private int x, y;
+	private ChessBoard board;
 	
-	public Rook(int x, int y) {
+	public Rook(ChessBoard board, int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.board = board;
 	}
 	
 	@Override

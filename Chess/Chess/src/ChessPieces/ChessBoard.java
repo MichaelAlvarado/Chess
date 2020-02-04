@@ -6,7 +6,7 @@ public class ChessBoard {
 	ArrayList<Piece> Whites; //white pieces
 	ArrayList<Piece> Blacks; //black pieces 
 	
-	String[][] board = new String[8][8]; 
+	String[][] board = new String[8][8]; //this Store the Position of each piece
 
 
 	public ChessBoard() {
@@ -14,30 +14,30 @@ public class ChessBoard {
 		Blacks = new ArrayList<Piece>();
 		//Pawns
 		for(int x = 0; x < 8; x++){
-			Whites.add(new Pawn(x, 1));//add all white pawns in row 2 column from 1 to 8
-			Blacks.add(new Pawn(x, 6));//add all black pawns in row 7 column from 1 to 8
+			Whites.add(new Pawn(this, x, 1));//add all white pawns in row 2 column from 1 to 8
+			Blacks.add(new Pawn(this, x, 6));//add all black pawns in row 7 column from 1 to 8
 		}
 		//Rooks
-		Whites.add(new Rook(0,0));
-		Whites.add(new Rook(7,0));
-		Blacks.add(new Rook(0,7));
-		Blacks.add(new Rook(7,7));
+		Whites.add(new Rook(this,0,0));
+		Whites.add(new Rook(this,7,0));
+		Blacks.add(new Rook(this,0,7));
+		Blacks.add(new Rook(this,7,7));
 		//Knights
-		Whites.add(new Knight(1,0));
-		Whites.add(new Knight(6,0));
-		Blacks.add(new Knight(1,7));
-		Blacks.add(new Knight(6,7));
+		Whites.add(new Knight(this,1,0));
+		Whites.add(new Knight(this,6,0));
+		Blacks.add(new Knight(this,1,7));
+		Blacks.add(new Knight(this,6,7));
 		//Bishops
-		Whites.add(new Bishop(2,0));
-		Whites.add(new Bishop(5,0));
-		Blacks.add(new Bishop(2,7));
-		Blacks.add(new Bishop(5,7));
+		Whites.add(new Bishop(this,2,0));
+		Whites.add(new Bishop(this,5,0));
+		Blacks.add(new Bishop(this,2,7));
+		Blacks.add(new Bishop(this,5,7));
 		//Queens
-		Whites.add(new Queen(3,0));
-		Blacks.add(new Queen(3,7));
+		Whites.add(new Queen(this,3,0));
+		Blacks.add(new Queen(this,3,7));
 		//Kings
-		Whites.add(new King(4,0));
-		Blacks.add(new King(4,7));
+		Whites.add(new King(this,4,0));
+		Blacks.add(new King(this,4,7));
 		
 		//Initialize board to String of WhiteSpace
 		for(int y=0; y<8; y++) {
