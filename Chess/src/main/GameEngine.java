@@ -7,31 +7,46 @@ import Display.DisplayScreen;
 import Input.KeyManager;
 import Input.MouseManager;
 import Input.MusicManager;
+import States.GameState;
+import States.MenuState;
+import States.State;
 import Input.Images;
 
 public class GameEngine implements Runnable {
-
+	//Display
 	public static DisplayScreen display;
 	public String title;
-	private int width, height;
+	public int width, height;
+	//Running engine
 	private boolean running = false;
 	private Thread thread;
 	public static boolean threadB;
+	//Render
 	private BufferStrategy bs;
 	private Graphics g;
+	//Managers
 	public KeyManager keyManager;
 	public MouseManager mouseManager;
 	public MusicManager musicHandler;
+	//State
+	public State currentState; //State currently at
+	public State gameState;
+	public State menuState;
 
-	public GameEngine(String title) {
+	public GameEngine(String title, int width, int height) {
 		this.title = title;
-		width = 1000;
-		height = 1000;
+		this.width = width;
+		this.height = height;
 		threadB=false;
 
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 		musicHandler = new MusicManager();
+
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
+		currentState = menuState;
+
 	}
 
 	private void init(){
@@ -46,6 +61,7 @@ public class GameEngine implements Runnable {
 	}
 
 	public void reStart(){
+		currentState = menuState;
 	}
 
 	public synchronized void start(){
@@ -93,6 +109,9 @@ public class GameEngine implements Runnable {
 		stop();
 
 	}
+	public void setState(State state) {
+		currentState = state;
+	}
 
 	private void tick(){
 		//checks for key types and manages them
@@ -103,10 +122,8 @@ public class GameEngine implements Runnable {
 		}
 
 		//game states are the menus
-		//			if(State.getState() != null)
-		//				State.getState().tick();
-
-
+		if(currentState != null)
+			currentState.tick();
 	}
 
 
@@ -123,28 +140,9 @@ public class GameEngine implements Runnable {
 
 		//Draw Here!
 		Graphics2D g2 = (Graphics2D) g.create();
-		
-		//White Piece Test
-		g.drawImage(Images.WKing,0,0,132,132,null);
-		g.drawImage(Images.WPawn,150,0,132,132,null);
-		g.drawImage(Images.WBishop,300,0,132,132,null);
-		g.drawImage(Images.WQueen,450,0,132,132,null);
-		g.drawImage(Images.WRook,600,0,132,132,null);
-		g.drawImage(Images.WKnight,750,0,132,132,null);
-		//Black Piece Test
-		g.drawImage(Images.BKing,0,132,132,132,null);
-		g.drawImage(Images.BPawn,150,132,132,132,null);
-		g.drawImage(Images.BBishop,300,132,132,132,null);
-		g.drawImage(Images.BQueen,450,132,132,132,null);
-		g.drawImage(Images.BRook,600,132,132,132,null);
-		g.drawImage(Images.BKnight,750,132,132,132,null);
-		
 
-
-
-
-		//			if(State.getState() != null)
-		//				State.getState().render(g);
+		if(currentState != null)
+			currentState.render(g);
 
 		//End Drawing!
 		bs.show();

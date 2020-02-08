@@ -12,7 +12,9 @@ public class Images {
 
     public static BufferedImage[] backgrounds;
     public static BufferedImage Title;
+    public static BufferedImage start;
     public static BufferedImage PieceSprite;
+    public static BufferedImage board;
     
     //White Pieces
     public static BufferedImage WPawn;
@@ -37,9 +39,10 @@ public class Images {
         
             
             //backgrounds[0] = ImageIO.read(getClass().getResourceAsStream("res/Pieces/Test.png")); //not working
-            backgrounds[0] = ImageIO.read(new File("res/Logo/Logo.jpg"));
+            backgrounds[0] = ImageIO.read(new File("res/Logo/RedLogo.png"));
             PieceSprite = ImageIO.read((new File("res/Pieces/ChessPieces.png")));
-           
+            start = ImageIO.read(new File("res/Pieces/start.png"));
+            board = ImageIO.read(new File("res/Pieces/board.jpg"));
             //White Pieces
             WRook = PieceSprite.getSubimage(0, 0, 132, 132);
             WKnight = PieceSprite.getSubimage(132, 0, 132, 132);
