@@ -9,7 +9,7 @@ import Main.GameEngine;
 
 public class ChessBoard {
 	
-	private boolean WhiteTurn; //To know which turn is to play
+	public boolean WhiteTurn; //To know which turn is to play
 	public GameEngine game;
 	public Piece[][] board; //Keep the position of the pieces on the board;
 	public int x, y ,width, height; //Where the board is going to be at the Windows App

@@ -1,5 +1,6 @@
 package ChessPieces;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -29,11 +30,17 @@ public class Piece {
 	}
 	public void move(int x, int y)
 	{
+		board[this.x][this.y] = null;
 		this.x = x;
 		this.y = y;
 		this.bound.x = x * width;
 		this.bound.y = y * height;
 		this.selected = false;
+		chess.WhiteTurn = !chess.WhiteTurn;
+		//move or eat in the board
+		if(board[x][y] != null) {
+			board[x][y] = null; //eat a piece
+		}
 		board[x][y] = this;
 	}
 	public int xPos()
@@ -44,22 +51,29 @@ public class Piece {
 		return this.y;
 	}
 	public void tick() {
-		if(chess.game.mouseManager.rectPressed(bound)) {
-			select();
-			System.out.println("ticking");
-		}
-		if(selected) {
-			for(Point p: possibleMoves()) {
-				Rectangle moves = new Rectangle(p.x * width, p.y * height, width, height);
-				if(chess.game.mouseManager.rectPressed(moves)) {
-					move(p.x, p.y);
-					selected = false;
+		if((chess.WhiteTurn && side == sides.White) || (!chess.WhiteTurn && side == sides.Black)) {
+			if(chess.game.mouseManager.rectPressed(bound)) {
+				select();
+				System.out.println("ticking");
+			}
+			if(selected) {
+				for(Point p: possibleMoves()) {
+					Rectangle moves = new Rectangle(p.x * width, p.y * height, width, height);
+					if(chess.game.mouseManager.rectPressed(moves)) {
+						move(p.x, p.y);
+						selected = false;
+					}
 				}
 			}
 		}
 	}
 	public void render(Graphics g) {
-		
+		if(selected) {
+			g.setColor(new Color(10,100,50,140));
+			for(Point p: possibleMoves()) {
+				g.fillRect(p.x * width, p.y * height, width, height);
+			}
+		}
 	}
 	private void select() {
 		//deselect all Pieces and then select this one

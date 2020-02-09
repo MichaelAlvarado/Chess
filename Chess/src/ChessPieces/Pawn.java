@@ -11,26 +11,20 @@ public class Pawn extends Piece {
 
 	private boolean Moved; //this is to know whether we can move the pawn twice, at their first move
 
-	public Pawn(ChessBoard board, int x, int y, sides side) {
-		super(board,x,y,side);
+	public Pawn(ChessBoard chess, int x, int y, sides side) {
+		super(chess,x,y,side);
 		this.Moved = false;
 	}
 
 	@Override
 	public void move(int x, int y) {
-		super.move(x, y);;
+		super.move(x, y);
 		this.Moved = true;
 	}
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		if(selected) {
-			g.setColor(new Color(10,100,50,140));
-			for(Point p: possibleMoves()) {
-				g.fillRect(p.x * width, p.y * height, width, height);
-			}
-		}
-		if(this.side == side.White) {
+		if(this.side == sides.White) {
 			g.drawImage(Images.WPawn, this.x*(width), this.y*(height), (width), (height), null);
 		}
 		else {
@@ -39,19 +33,30 @@ public class Pawn extends Piece {
 	}
 	@Override
 	public ArrayList<Point> possibleMoves(){
-		Piece[][] Board = board;
-		ArrayList<Point> moves = new ArrayList();
+		ArrayList<Point> moves = new ArrayList<Point>();
 		int direction;
-		if(this.side == side.Black){
+		if(this.side == sides.Black){
 			direction = 1;
 		}
 		else {
 			direction = -1;
 		}
-		if(Board[x][y+direction] == null) {
-			moves.add(new Point(x,y+direction));
-			if(!this.Moved && Board[x][y+2*direction] == null) {
-				moves.add(new Point(x,y+2*direction));
+		//foward movement
+		if(y+direction < 8 && y+direction > 0) {
+			if(board[x][y+direction] == null) {
+				moves.add(new Point(x,y+direction));
+				if(!this.Moved && board[x][y+2*direction] == null) {//First movement can move to positions
+					moves.add(new Point(x,y+2*direction));
+				}
+			}
+			//eating movement
+			if(x+1 < 8 && x-1 > 0) {
+				if(board[x+1][y+direction] != null && !board[x+1][y+direction].side.equals(this.side)){
+					moves.add(new Point(x+1, y+direction));
+				}
+				if(board[x-1][y+direction] != null && !board[x-1][y+direction].side.equals(this.side)){
+					moves.add(new Point(x-1, y+direction));
+				}
 			}
 		}
 		return moves;

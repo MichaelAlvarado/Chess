@@ -1,0 +1,11 @@
+
+Still Missing:
+	-predict if king can move to an danger zone(could be eaten)
+	-Check and Checkmate
+	-Queen and King side Castle
+	-Timer (individual timers and increment option)
+	-Menu design improvement 
+	-settings (sound, autopredict disable, etc)
+	-code cleaning and optimizing
+	-count the number of turn (for status purposes)
+	-
