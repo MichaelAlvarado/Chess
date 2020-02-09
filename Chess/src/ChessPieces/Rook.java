@@ -1,58 +1,22 @@
 package ChessPieces;
 
 import java.awt.Graphics;
-
-import ChessPieces.Piece.side;
 import Input.Images;
 
-public class Rook implements Piece {
+public class Rook extends Piece {
 	
-	private int x, y;
-	private ChessBoard board;
-	private side color;
-	private boolean selected;
-	
-	public Rook(ChessBoard board, int x, int y, side color) {
-		this.x = x;
-		this.y = y;
-		this.board = board;
-		this.color = color;
-		this.selected = false;
-	}
-	
-	@Override
-	public void move(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	@Override
-	public int xPos() {
-		return this.x;
-	}
-	@Override
-	public int yPos() {
-		return this.y;
-	}
-
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
+	public Rook(ChessBoard chess, int x, int y, sides side) {
+		super(chess, x, y, side);
 	}
 
 	@Override
 	public void render(Graphics g) {
-		if(this.color == side.White) {
-			g.drawImage(Images.WRook, this.x*(board.width/8), this.y*(board.height/8), (board.width/8), (board.height/8), null);
+		if(this.side == side.White) {
+			g.drawImage(Images.WRook, this.x*(width), this.y*(height), (width), (height), null);
 		}
 		else {
-			g.drawImage(Images.BRook, this.x*(board.width/8), this.y*(board.height/8), (board.width/8), (board.height/8), null);
+			g.drawImage(Images.BRook, this.x*(width), this.y*(height), (width), (height), null);
 		}
-	}
-
-	@Override
-	public void deselect() {
-		this.selected = false;
 	}
 	
 }

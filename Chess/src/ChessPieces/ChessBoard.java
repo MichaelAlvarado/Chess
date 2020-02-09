@@ -4,10 +4,11 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import ChessPieces.Piece.side;
+import ChessPieces.Piece.sides;
 import Main.GameEngine;
 
 public class ChessBoard {
+	
 	private boolean WhiteTurn; //To know which turn is to play
 	public GameEngine game;
 	public Piece[][] board; //Keep the position of the pieces on the board;
@@ -23,31 +24,31 @@ public class ChessBoard {
 		board = new Piece[8][8];
 		WhiteTurn = true;//Whites always start first
 		this.rotation = false;
-		//Initialize board with starting Chess Position (Indexs followed by chess 0,0 botom left)
+		//Initialize board with starting Chess Position (Index followed by chess 0,0 botom left)
 		for(int x = 0; x < 8; x++) {
-			board[x][1] = new Pawn(this, x, 1, side.Black);
-			board[x][6] = new Pawn(this, x, 6, side.White);
+			board[x][1] = new Pawn(this, x, 1, sides.Black);
+			board[x][6] = new Pawn(this, x, 6, sides.White);
 		}
-		board[0][7] = new Rook(this, 0, 7, side.White);
-		board[7][7] = new Rook(this, 7, 7, side.White);
-		board[0][0] = new Rook(this, 0, 0, side.Black);
-		board[7][0] = new Rook(this, 7, 0, side.Black);
+		board[0][7] = new Rook(this, 0, 7, sides.White);
+		board[7][7] = new Rook(this, 7, 7, sides.White);
+		board[0][0] = new Rook(this, 0, 0, sides.Black);
+		board[7][0] = new Rook(this, 7, 0, sides.Black);
 
-		board[1][7] = new Knight(this, 1, 7, side.White);
-		board[6][7] = new Knight(this, 6, 7, side.White);
-		board[1][0] = new Knight(this, 1, 0, side.Black);
-		board[6][0] = new Knight(this, 6, 0, side.Black);
+		board[1][7] = new Knight(this, 1, 7, sides.White);
+		board[6][7] = new Knight(this, 6, 7, sides.White);
+		board[1][0] = new Knight(this, 1, 0, sides.Black);
+		board[6][0] = new Knight(this, 6, 0, sides.Black);
 
-		board[2][7] = new Bishop(this, 2, 7, side.White);
-		board[5][7] = new Bishop(this, 5, 7, side.White);
-		board[2][0] = new Bishop(this, 2, 0, side.Black);
-		board[5][0] = new Bishop(this, 5, 0, side.Black);
+		board[2][7] = new Bishop(this, 2, 7, sides.White);
+		board[5][7] = new Bishop(this, 5, 7, sides.White);
+		board[2][0] = new Bishop(this, 2, 0, sides.Black);
+		board[5][0] = new Bishop(this, 5, 0, sides.Black);
 
-		board[3][7] = new Queen(this, 3, 7, side.White);
-		board[3][0] = new Queen(this, 3, 0, side.Black);
+		board[3][7] = new Queen(this, 3, 7, sides.White);
+		board[3][0] = new Queen(this, 3, 0, sides.Black);
 
-		board[4][7] = new King(this, 4, 7, side.White);
-		board[4][0] = new King(this, 4, 0, side.Black);
+		board[4][7] = new King(this, 4, 7, sides.White);
+		board[4][0] = new King(this, 4, 0, sides.Black);
 	}
 
 	public void tick() {

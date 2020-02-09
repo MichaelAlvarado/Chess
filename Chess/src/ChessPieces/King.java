@@ -1,58 +1,29 @@
 package ChessPieces;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
 
-import ChessPieces.Piece.side;
 import Input.Images;
 
-public class King implements Piece {
-	
-	private int x, y;
-	private ChessBoard board;
-	private side color;
-	private boolean selected;
+public class King extends Piece {
 
-	public King(ChessBoard board, int x, int y, side color) {
-		this.x = x;
-		this.y = y;
-		this.board = board;
-		this.color = color;
-		this.selected = false;
-	}
-	
-	@Override
-	public void move(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	@Override
-	public int xPos() {
-		return this.x;
-	}
-	@Override
-	public int yPos() {
-		return this.y;
-	}
-
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
+	public King(ChessBoard chess, int x, int y, sides side) {
+		super(chess, x, y, side);
 	}
 
 	@Override
 	public void render(Graphics g) {
-		if(this.color == side.White) {
-			g.drawImage(Images.WKing, this.x*(board.width/8), this.y*(board.height/8), (board.width/8), (board.height/8), null);
+		if(this.side == side.White) {
+			g.drawImage(Images.WKing, this.x*(width), this.y*(height), (width), (height), null);
 		}
 		else {
-			g.drawImage(Images.BKing, this.x*(board.width/8), this.y*(board.height/8), (board.width/8), (board.height/8), null);
+			g.drawImage(Images.BKing, this.x*(width), this.y*(height), (width), (height), null);
 		}		
 	}
-
 	@Override
-	public void deselect() {
-		this.selected = false;
+	public ArrayList<Point> possibleMoves(){
+		return new ArrayList<Point>();
 	}
-	
 }
+
