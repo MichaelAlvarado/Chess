@@ -1,5 +1,6 @@
 package Input;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -27,6 +28,10 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 
     public int getMouseY() {
         return mouseY;
+    }
+    
+    public boolean rectPressed(Rectangle rec) {
+    	return rec.contains(mouseX, mouseY) && leftPressed;
     }
 
     @Override
@@ -75,4 +80,5 @@ public class MouseManager implements MouseListener,MouseMotionListener{
         mouseX = e.getX();
         mouseY = e.getY();
     }
+    
 }

@@ -9,5 +9,5 @@ public interface Piece {
 	int yPos();
 	void tick();
 	void render(Graphics g);
-	
+	void deselect();
 }

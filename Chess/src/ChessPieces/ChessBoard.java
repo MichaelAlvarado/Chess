@@ -5,11 +5,11 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import ChessPieces.Piece.side;
-import main.GameEngine;
+import Main.GameEngine;
 
 public class ChessBoard {
 	private boolean WhiteTurn; //To know which turn is to play
-	private GameEngine game;
+	public GameEngine game;
 	public Piece[][] board; //Keep the position of the pieces on the board;
 	public int x, y ,width, height; //Where the board is going to be at the Windows App
 	private boolean rotation; //If whites are position on the buttom its true
@@ -32,33 +32,39 @@ public class ChessBoard {
 		board[7][7] = new Rook(this, 7, 7, side.White);
 		board[0][0] = new Rook(this, 0, 0, side.Black);
 		board[7][0] = new Rook(this, 7, 0, side.Black);
-		
+
 		board[1][7] = new Knight(this, 1, 7, side.White);
 		board[6][7] = new Knight(this, 6, 7, side.White);
 		board[1][0] = new Knight(this, 1, 0, side.Black);
 		board[6][0] = new Knight(this, 6, 0, side.Black);
-		
+
 		board[2][7] = new Bishop(this, 2, 7, side.White);
 		board[5][7] = new Bishop(this, 5, 7, side.White);
 		board[2][0] = new Bishop(this, 2, 0, side.Black);
 		board[5][0] = new Bishop(this, 5, 0, side.Black);
-		
+
 		board[3][7] = new Queen(this, 3, 7, side.White);
 		board[3][0] = new Queen(this, 3, 0, side.Black);
-		
+
 		board[4][7] = new King(this, 4, 7, side.White);
 		board[4][0] = new King(this, 4, 0, side.Black);
 	}
 
 	public void tick() {
-	
+		for(int x = 0; x < 8; x++) {
+			for(int y = 0; y < 8; y++) {
+				if(board[x][y] != null) {
+					board[x][y].tick();
+				}
+			}
+		}
 	}
 
 	public void render(Graphics g) {
 		renderBoard(g);
 		renderPieces(g);
 	} 
-	
+
 	private void renderBoard (Graphics g) {
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {

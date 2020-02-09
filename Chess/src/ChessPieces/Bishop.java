@@ -11,12 +11,14 @@ public class Bishop implements Piece{
 	private int x, y;//Positions to print
 	private ChessBoard board;
 	private side color;
+	private boolean selected;
 
 	public Bishop(ChessBoard board, int x, int y, side color) {
 		this.x = x;
 		this.y = y;
 		this.board = board;
 		this.color = color;
+		selected = false;
 	}
 	
 	@Override
@@ -50,6 +52,11 @@ public class Bishop implements Piece{
 	}
 	private void onClick() {
 		//if click tells posible position to move it and make it posible to move it to another position
+	}
+
+	@Override
+	public void deselect() {
+		this.selected = false;
 	}
 	
 }

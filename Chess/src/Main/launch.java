@@ -1,4 +1,4 @@
-package main;
+package Main;
 
 import ChessPieces.ChessBoard;
 import Display.DisplayScreen;

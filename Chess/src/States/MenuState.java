@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import Input.Images;
-import main.GameEngine;
+import Main.GameEngine;
 
 public class MenuState implements State{
 	

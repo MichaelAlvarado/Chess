@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 
 import ChessPieces.ChessBoard;
 import Input.Images;
-import main.GameEngine;
+import Main.GameEngine;
 
 public class GameState implements State{
 	
