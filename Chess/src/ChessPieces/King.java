@@ -8,10 +8,19 @@ import Input.Images;
 
 public class King extends Piece {
 
+	private boolean moved; //this is to know whether it can castle or not
+	
 	public King(ChessBoard chess, int x, int y, sides side) {
-		super(chess, x, y, side);
+		super(chess, x, y, side, pieces.King);
+		moved = false;
 	}
-
+	
+	@Override
+	public void move(int x, int y) {
+		super.move(x, y);
+		moved = true; 
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
@@ -73,8 +82,14 @@ public class King extends Piece {
 		y = this.y-1;
 		if(x<8 && y>=0 && (board[x][y] == null || (board[x][y] != null && !board[x][y].side.equals(this.side))))
 			moves.add(new Point(x,y));
-		
+		if(!this.moved)
+		moves.addAll(castle());
 		return moves;
+	}
+	private ArrayList<Point> castle() {
+		{
+			return new ArrayList<Point>();
+		}
 	}
 }
 

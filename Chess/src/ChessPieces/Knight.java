@@ -9,7 +9,7 @@ import Input.Images;
 public class Knight extends Piece {
 	
 	public Knight(ChessBoard chess, int x, int y, sides side) {
-		super(chess, x, y, side);
+		super(chess, x, y, side, pieces.Khight);
 	}
 	
 

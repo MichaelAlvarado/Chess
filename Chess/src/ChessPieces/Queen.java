@@ -9,7 +9,7 @@ import Input.Images;
 public class Queen extends Piece {
 
 	public Queen(ChessBoard chess, int x, int y, sides side) {
-		super(chess, x, y, side);
+		super(chess, x, y, side, pieces.Queen);
 	}
 
 	@Override

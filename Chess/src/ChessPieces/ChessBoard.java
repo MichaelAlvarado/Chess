@@ -1,9 +1,12 @@
 package ChessPieces;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import ChessPieces.Piece.pieces;
 import ChessPieces.Piece.sides;
 import Main.GameEngine;
 
@@ -15,19 +18,19 @@ public class ChessBoard {
 	public int x, y ,width, height; //Where the board is going to be at the Windows App
 	private boolean rotation; //If whites are position on the buttom its true
 
-	public ChessBoard(GameEngine game) {
-		this.x=0;
-		this.y=0;
-		this.width = game.width-100;
-		this.height = game.height;
+	public ChessBoard(GameEngine game, int x, int y, int width, int height) {
+		this.x=x;
+		this.y=y;
+		this.width = width;
+		this.height = height;
 		this.game = game;
 		board = new Piece[8][8];
 		WhiteTurn = true;//Whites always start first
 		this.rotation = false;
 		//Initialize board with starting Chess Position (Index followed by chess 0,0 botom left)
-		for(int x = 0; x < 8; x++) {
-			board[x][1] = new Pawn(this, x, 1, sides.Black);
-			board[x][6] = new Pawn(this, x, 6, sides.White);
+		for(int i = 0; i < 8; i++) {
+			board[i][1] = new Pawn(this, i, 1, sides.Black);
+			board[i][6] = new Pawn(this, i, 6, sides.White);
 		}
 		board[0][7] = new Rook(this, 0, 7, sides.White);
 		board[7][7] = new Rook(this, 7, 7, sides.White);
@@ -49,6 +52,7 @@ public class ChessBoard {
 
 		board[4][7] = new King(this, 4, 7, sides.White);
 		board[4][0] = new King(this, 4, 0, sides.Black);
+		
 	}
 
 	public void tick() {
@@ -67,6 +71,7 @@ public class ChessBoard {
 	} 
 
 	private void renderBoard (Graphics g) {
+		//Render Tiles
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
 				if((x+y) % 2 != 0)
@@ -76,6 +81,17 @@ public class ChessBoard {
 
 				g.fillRect(x*(width/8), y*(height/8), width/8, height/8);
 			}
+		}
+		//Render Coordinates
+		int fontSize = 20;
+		g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
+		g.setColor(Color.BLACK);
+		for(int y = 0; y < 8; y++) {
+			g.drawString(String.valueOf(8-y), 0, y*(height/8)+fontSize);
+		}
+		for(int x = 1; x < 8; x++) {
+			String[] coor = {"B","C","D","E","F","G","H"};
+			g.drawString(coor[x-1], x*(width/8), (7*height/8)+fontSize);
 		}
 	}
 	private void renderPieces(Graphics g) {

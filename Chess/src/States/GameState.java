@@ -11,14 +11,12 @@ import Main.GameEngine;
 public class GameState implements State{
 	
 	private GameEngine game;
-	public Rectangle board;
-	private ChessBoard chess; //this is the game of chess
+	private ChessBoard chess; //this is the game of chessboard with all pieces
 	private Color background; 
 	
 	public GameState(GameEngine game) {
 		this.game = game;
-		board = new Rectangle(game.width/2-400,100, 700, 700);
-		chess = new ChessBoard(game);
+		chess = new ChessBoard(game,0,0,game.width, game.height);
 		this.background = Color.lightGray;
 	}
 

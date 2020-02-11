@@ -9,7 +9,7 @@ import Input.Images;
 public class Rook extends Piece {
 	
 	public Rook(ChessBoard chess, int x, int y, sides side) {
-		super(chess, x, y, side);
+		super(chess, x, y, side, pieces.Rook);
 	}
 
 	@Override

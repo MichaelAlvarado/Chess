@@ -9,17 +9,17 @@ import Input.Images;
 
 public class Pawn extends Piece {
 
-	private boolean Moved; //this is to know whether we can move the pawn twice, at their first move
+	private boolean moved; //this is to know whether we can move the pawn twice, at their first move
 
 	public Pawn(ChessBoard chess, int x, int y, sides side) {
-		super(chess,x,y,side);
-		this.Moved = false;
+		super(chess,x,y,side, pieces.Pawn);
+		this.moved = false;
 	}
 
 	@Override
 	public void move(int x, int y) {
 		super.move(x, y);
-		this.Moved = true;
+		this.moved = true;
 	}
 	@Override
 	public void render(Graphics g) {
@@ -45,7 +45,7 @@ public class Pawn extends Piece {
 		if(y+direction < 8 && y+direction > 0) {
 			if(board[x][y+direction] == null) {
 				moves.add(new Point(x,y+direction));
-				if(!this.Moved && board[x][y+2*direction] == null) {//First movement can move to positions
+				if(!this.moved && board[x][y+2*direction] == null) {//First movement can move to positions
 					moves.add(new Point(x,y+2*direction));
 				}
 			}

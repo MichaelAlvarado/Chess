@@ -10,7 +10,7 @@ import Input.Images;
 public class Bishop extends Piece{
 
 	public Bishop(ChessBoard chess, int x, int y, sides side) {
-		super(chess, x, y, side);
+		super(chess, x, y, side, pieces.Bishop);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class Bishop extends Piece{
 		//Up Left
 		x = this.x-1;
 		y = this.y+1;
-		while(x>0 && y<8) {
+		while(x>=0 && y<8) {
 			if(board[x][y] != null) {
 				if(!board[x][y].side.equals(this.side)) {
 					moves.add(new Point(x,y));//can eat
@@ -57,7 +57,7 @@ public class Bishop extends Piece{
 		//Down right
 		x = this.x+1;
 		y = this.y-1;
-		while(x<8 && y>0) {
+		while(x<8 && y>=0) {
 			if(board[x][y] != null) {
 				if(!board[x][y].side.equals(this.side)) {
 					moves.add(new Point(x,y));//can eat
@@ -71,7 +71,7 @@ public class Bishop extends Piece{
 		//Down Left
 		x = this.x-1;
 		y = this.y-1;
-		while(x<8 && y>0) {
+		while(x>=0 && y>=0) {
 			if(board[x][y] != null) {
 				if(!board[x][y].side.equals(this.side)) {
 					moves.add(new Point(x,y));//can eat
