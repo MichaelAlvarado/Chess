@@ -28,17 +28,13 @@ public class DisplayScreen {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setBackground(Color.black);
-
         try {
             frame.setIconImage(ImageIO.read(new File("res/Logo/Logo.jpg"))); //Linux doesnt work
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
-        canvas.setMaximumSize(new Dimension(width, height));
-        canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
         canvas.setBackground(Color.WHITE);
 

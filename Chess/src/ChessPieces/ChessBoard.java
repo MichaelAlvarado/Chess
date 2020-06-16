@@ -89,9 +89,9 @@ public class ChessBoard {
 		for(int y = 0; y < 8; y++) {
 			g.drawString(String.valueOf(8-y), 0, y*(height/8)+fontSize);
 		}
-		for(int x = 1; x < 8; x++) {
-			String[] coor = {"B","C","D","E","F","G","H"};
-			g.drawString(coor[x-1], x*(width/8), (7*height/8)+fontSize);
+		for(int x = 0; x < 8; x++) {
+			String[] coor = {"A","B","C","D","E","F","G","H"};
+			g.drawString(coor[x], x*(width/8), height);
 		}
 	}
 	private void renderPieces(Graphics g) {

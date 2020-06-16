@@ -78,7 +78,7 @@ public class Piece {
 				select();
 				possibleMoves = possibleMoves();
 				possibleMoves = checkRemoval(possibleMoves); 
-				System.out.println("ticking");
+//				System.out.println("ticking");
 			}
 			if(selected) {
 				for(Point p: possibleMoves) { //Could be more efficient saving possibleMoves
