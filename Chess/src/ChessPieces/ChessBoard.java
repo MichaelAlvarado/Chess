@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import AI.AIPlayer;
 import ChessPieces.Piece.pieces;
 import ChessPieces.Piece.sides;
 import Main.GameEngine;
@@ -13,49 +14,76 @@ import Main.GameEngine;
 public class ChessBoard {
 	
 	public boolean WhiteTurn; //To know which turn is to play
-	public GameEngine game;
 	public Piece[][] board; //Keep the position of the pieces on the board;
+	public ArrayList<Piece> whitePieces;
+	public ArrayList<Piece> blackPieces;
 	public int x, y ,width, height; //Where the board is going to be at the Windows App
 	private boolean rotation; //If whites are position on the buttom its true
 
-	public ChessBoard(GameEngine game, int x, int y, int width, int height) {
+	public ChessBoard(int x, int y, int width, int height) {
 		this.x=x;
 		this.y=y;
 		this.width = width;
 		this.height = height;
-		this.game = game;
 		board = new Piece[8][8];
 		WhiteTurn = true;//Whites always start first
-		this.rotation = false;
+		rotation = false;
+		whitePieces = new ArrayList<Piece>();
+		blackPieces = new ArrayList<Piece>();
 		//Initialize board with starting Chess Position (Index followed by chess 0,0 botom left)
 		for(int i = 0; i < 8; i++) {
 			board[i][1] = new Pawn(this, i, 1, sides.Black);
+			blackPieces.add(board[i][1]);
 			board[i][6] = new Pawn(this, i, 6, sides.White);
+			whitePieces.add(board[i][6]);
 		}
 		board[0][7] = new Rook(this, 0, 7, sides.White);
 		board[7][7] = new Rook(this, 7, 7, sides.White);
+		whitePieces.add(board[0][7]);
+		whitePieces.add(board[7][7]);
+
 		board[0][0] = new Rook(this, 0, 0, sides.Black);
 		board[7][0] = new Rook(this, 7, 0, sides.Black);
+		blackPieces.add(board[0][0]);
+		blackPieces.add(board[7][0]);
 
 		board[1][7] = new Knight(this, 1, 7, sides.White);
 		board[6][7] = new Knight(this, 6, 7, sides.White);
+		whitePieces.add(board[0][7]);
+		whitePieces.add(board[6][7]);
+		
 		board[1][0] = new Knight(this, 1, 0, sides.Black);
 		board[6][0] = new Knight(this, 6, 0, sides.Black);
+		blackPieces.add(board[1][0]);
+		blackPieces.add(board[6][0]);
 
 		board[2][7] = new Bishop(this, 2, 7, sides.White);
 		board[5][7] = new Bishop(this, 5, 7, sides.White);
+		whitePieces.add(board[2][7]);
+		whitePieces.add(board[5][7]);
+		
 		board[2][0] = new Bishop(this, 2, 0, sides.Black);
 		board[5][0] = new Bishop(this, 5, 0, sides.Black);
+		blackPieces.add(board[2][0]);
+		blackPieces.add(board[5][0]);
 
 		board[3][7] = new Queen(this, 3, 7, sides.White);
+		whitePieces.add(board[3][7]);
 		board[3][0] = new Queen(this, 3, 0, sides.Black);
+		blackPieces.add(board[3][0]);
 
 		board[4][7] = new King(this, 4, 7, sides.White);
+		whitePieces.add(board[4][7]);
 		board[4][0] = new King(this, 4, 0, sides.Black);
+		blackPieces.add(board[4][0]);
 		
+
 	}
 
 	public void tick() {
+		if(WhiteTurn) {
+			AIPlayer.move(this);
+		}
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
 				if(board[x][y] != null) {

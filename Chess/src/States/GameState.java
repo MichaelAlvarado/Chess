@@ -16,7 +16,7 @@ public class GameState implements State{
 	
 	public GameState(GameEngine game) {
 		this.game = game;
-		chess = new ChessBoard(game,0,0,game.width, game.height);
+		chess = new ChessBoard(0,0,game.width, game.height);
 		this.background = Color.lightGray;
 	}
 

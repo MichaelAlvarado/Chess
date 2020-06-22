@@ -7,8 +7,9 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import ChessPieces.Piece.pieces;
+import Input.MouseManager;
 
-public class Piece {
+public abstract class Piece {
 
 	public enum sides {White, Black};
 	public enum pieces {Pawn, Bishop, Rook, Queen, King, Khight};
@@ -16,7 +17,7 @@ public class Piece {
 	public sides side;
 	public pieces piece;
 	public int x, y, width, height; 
-	public ChessBoard chess;
+	public ChessBoard chess; //The chess board this piece belongs to
 	public Piece[][] board; 
 	public Rectangle bound;//to use for clicking 
 	public boolean selected; //to predict movements
@@ -35,6 +36,7 @@ public class Piece {
 		bound = new Rectangle(x*width, y*height, width, height);
 		selected = false;
 		check = false;
+
 	}
 	public void move(int x, int y)
 	{
@@ -46,13 +48,15 @@ public class Piece {
 		//to move graphical
 		this.bound.x = x * width;
 		this.bound.y = y * height;
-		this.selected = false;
 		chess.WhiteTurn = !chess.WhiteTurn;
 
 		//move or eat in the board
 		if(board[x][y] != null) {
+			chess.blackPieces.remove(board[x][y]);
+			chess.whitePieces.remove(board[x][y]);
 			board[x][y] = null; //eat a piece
 		}
+		
 		board[x][y] = this;
 
 		//Verify check almost works
@@ -74,7 +78,7 @@ public class Piece {
 	}
 	public void tick() {
 		if((chess.WhiteTurn && side == sides.White) || (!chess.WhiteTurn && side == sides.Black)) {
-			if(chess.game.mouseManager.rectPressed(bound)) {
+			if(MouseManager.rectPressed(bound)) {
 				select();
 				possibleMoves = possibleMoves();
 				possibleMoves = checkRemoval(possibleMoves); 
@@ -83,9 +87,9 @@ public class Piece {
 			if(selected) {
 				for(Point p: possibleMoves) { //Could be more efficient saving possibleMoves
 					Rectangle moves = new Rectangle(p.x * width, p.y * height, width, height);
-					if(chess.game.mouseManager.rectPressed(moves)) {
+					if(MouseManager.rectPressed(moves)) {
 						move(p.x, p.y);
-						selected = false;
+						deselectAll();
 					}
 				}
 			}
@@ -105,6 +109,13 @@ public class Piece {
 	}
 	private void select() {
 		//deselect all Pieces and then select this one
+		deselectAll();
+		this.selected = true;
+	}
+	public void deselect() {
+		this.selected = false;
+	}
+	public void deselectAll() {
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
 				if(board[x][y] != null) {
@@ -112,14 +123,10 @@ public class Piece {
 				}
 			}
 		}
-		this.selected = true;
 	}
-	public void deselect() {
-		this.selected = false;
-	}
-	public ArrayList<Point> possibleMoves(){
-		return new ArrayList<Point>(); //return empty list
-	}
+	public abstract ArrayList<Point> possibleMoves();
+		
+	
 	private Piece checkTest() {
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {

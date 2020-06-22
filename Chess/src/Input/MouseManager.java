@@ -7,8 +7,10 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseManager implements MouseListener,MouseMotionListener{
 
-    private boolean leftPressed,rightPressed;
-    private int mouseX,mouseY;
+    private static boolean leftPressed;
+	private static boolean rightPressed;
+    private static int mouseX;
+	private static int mouseY;
 
     public MouseManager(){
 
@@ -30,7 +32,7 @@ public class MouseManager implements MouseListener,MouseMotionListener{
         return mouseY;
     }
     
-    public boolean rectPressed(Rectangle rec) {
+    public static boolean rectPressed(Rectangle rec) {
     	return rec.contains(mouseX, mouseY) && leftPressed;
     }
 
