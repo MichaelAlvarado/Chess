@@ -42,7 +42,7 @@ public class Pawn extends Piece {
 			direction = -1;
 		}
 		//foward movement
-		if(y+direction < 8 && y+direction > 0) {
+		if(y < 7 && y > 0) {
 			if(board[x][y+direction] == null) {
 				moves.add(new Point(x,y+direction));
 				if(!this.moved && board[x][y+2*direction] == null) {//First movement can move to positions
@@ -50,14 +50,13 @@ public class Pawn extends Piece {
 				}
 			}
 			//eating movement
-			if(x+1 < 8 && x-1 > 0) {
-				if(board[x+1][y+direction] != null && !board[x+1][y+direction].side.equals(this.side)){
-					moves.add(new Point(x+1, y+direction));
-				}
-				if(board[x-1][y+direction] != null && !board[x-1][y+direction].side.equals(this.side)){
-					moves.add(new Point(x-1, y+direction));
-				}
+			if(x < 7 && board[x+1][y+direction] != null && !board[x+1][y+direction].side.equals(this.side)){
+				moves.add(new Point(x+1, y+direction));
 			}
+			if(x > 0 && board[x-1][y+direction] != null && !board[x-1][y+direction].side.equals(this.side)){
+				moves.add(new Point(x-1, y+direction));
+			}
+
 		}
 		return moves;
 	}

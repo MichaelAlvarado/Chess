@@ -113,7 +113,7 @@ public class Queen extends Piece {
 			moves.add(new Point(this.x, y));
 		}
 		//down movement
-		for(y = this.y-1; y >0; y--) {
+		for(y = this.y-1; y >= 0; y--) {
 			if(board[this.x][y] != null) {
 				if(!board[this.x][y].side.equals(this.side)) {
 					moves.add(new Point(this.x, y));//can eat piece

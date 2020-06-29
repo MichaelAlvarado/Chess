@@ -8,8 +8,11 @@ import Input.Images;
 
 public class Rook extends Piece {
 	
+	public boolean moved; //this is to know whether it can castle or not
+	
 	public Rook(ChessBoard chess, int x, int y, sides side) {
 		super(chess, x, y, side, pieces.Rook);
+		moved = false;
 	}
 
 	@Override
@@ -22,6 +25,13 @@ public class Rook extends Piece {
 			g.drawImage(Images.BRook, this.x*(width), this.y*(height), (width), (height), null);
 		}
 	}
+	
+	@Override
+	public void move(int x, int y) {
+		super.move(x, y);
+		moved = true; 
+	}
+	
 	@Override
 	public ArrayList<Point> possibleMoves(){
 		ArrayList<Point> moves = new ArrayList<Point>();

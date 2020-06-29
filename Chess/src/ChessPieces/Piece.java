@@ -21,7 +21,6 @@ public abstract class Piece {
 	public Piece[][] board; 
 	public Rectangle bound;//to use for clicking 
 	public boolean selected; //to predict movements
-	public boolean check; 
 	public ArrayList<Point> possibleMoves;
 
 	public Piece(ChessBoard chess, int x, int y, sides side, pieces piece) {
@@ -35,7 +34,6 @@ public abstract class Piece {
 		this.piece = piece;
 		bound = new Rectangle(x*width, y*height, width, height);
 		selected = false;
-		check = false;
 
 	}
 	public void move(int x, int y)
@@ -62,11 +60,12 @@ public abstract class Piece {
 		//Verify check almost works
 		Piece check = checkTest();
 		if(check != null) {
-			check.check=true;
+			System.out.println("CHECK");
 			if((check.side.equals(sides.White) && chess.WhiteTurn )|| (check.side.equals(sides.Black) && !chess.WhiteTurn)) {
 				System.out.println("Cannot make this move");
 			}
 		}
+		
 
 	}
 	public int xPos()
@@ -102,10 +101,10 @@ public abstract class Piece {
 				g.fillRect(p.x * width, p.y * height, width, height);
 			}
 		}
-		if(check) {
-			g.setColor(new Color(200,0,0,140));
-			g.fillRect(x*width, y*height, width, height);
-		}
+//		if(check) {
+//			g.setColor(new Color(200,0,0,140));
+//			g.fillRect(x*width, y*height, width, height);
+//		}
 	}
 	private void select() {
 		//deselect all Pieces and then select this one

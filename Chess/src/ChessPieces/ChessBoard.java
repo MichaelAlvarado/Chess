@@ -3,8 +3,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.desktop.SystemSleepEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import AI.AIPlayer;
 import ChessPieces.Piece.pieces;
@@ -12,7 +14,7 @@ import ChessPieces.Piece.sides;
 import Main.GameEngine;
 
 public class ChessBoard {
-	
+
 	public boolean WhiteTurn; //To know which turn is to play
 	public Piece[][] board; //Keep the position of the pieces on the board;
 	public ArrayList<Piece> whitePieces;
@@ -51,7 +53,7 @@ public class ChessBoard {
 		board[6][7] = new Knight(this, 6, 7, sides.White);
 		whitePieces.add(board[0][7]);
 		whitePieces.add(board[6][7]);
-		
+
 		board[1][0] = new Knight(this, 1, 0, sides.Black);
 		board[6][0] = new Knight(this, 6, 0, sides.Black);
 		blackPieces.add(board[1][0]);
@@ -61,7 +63,7 @@ public class ChessBoard {
 		board[5][7] = new Bishop(this, 5, 7, sides.White);
 		whitePieces.add(board[2][7]);
 		whitePieces.add(board[5][7]);
-		
+
 		board[2][0] = new Bishop(this, 2, 0, sides.Black);
 		board[5][0] = new Bishop(this, 5, 0, sides.Black);
 		blackPieces.add(board[2][0]);
@@ -76,13 +78,18 @@ public class ChessBoard {
 		whitePieces.add(board[4][7]);
 		board[4][0] = new King(this, 4, 0, sides.Black);
 		blackPieces.add(board[4][0]);
-		
+
 
 	}
 
 	public void tick() {
-		if(WhiteTurn) {
+//		if(WhiteTurn)
 			AIPlayer.move(this);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
@@ -97,6 +104,21 @@ public class ChessBoard {
 		renderBoard(g);
 		renderPieces(g);
 	} 
+
+	//	public ChessBoard clone() {
+	//		ChessBoard clone = new ChessBoard(x,y,width,height);
+	//		clone.blackPieces = new ArrayList<Piece>();
+	//		clone.whitePieces = new ArrayList<Piece> ();
+	//		for (Piece piece : whitePieces) {
+	//			clone.whitePieces.add(piece.clone(clone));
+	//		}
+	//		for (Piece piece : blackPieces) {
+	//			clone.blackPieces.add(piece.clone(clone));
+	//		}
+	//		clone.WhiteTurn = this.WhiteTurn;
+	//		clone.board = Arrays.copyOf(this.board, this.board.length);
+	//		return clone;
+	//	}
 
 	private void renderBoard (Graphics g) {
 		//Render Tiles
@@ -134,4 +156,6 @@ public class ChessBoard {
 	private void rotateBoard(){
 		this.rotation = !this.rotation; //Not working because render does not use rotation yet
 	}
+	
+	
 }
