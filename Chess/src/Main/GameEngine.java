@@ -1,13 +1,21 @@
 package Main;
+import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import Display.DisplayScreen;
 import Input.KeyManager;
 import Input.MouseManager;
 import Input.MusicManager;
 import States.GameState;
+import States.GameState.Mode;
 import States.MenuState;
 import States.State;
 import Input.Images;
@@ -33,7 +41,7 @@ public class GameEngine implements Runnable {
 	public State gameState;
 	public State menuState;
 
-	public GameEngine(String title, int width, int height) {
+	public GameEngine(String title, int width, int height, Mode mode) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
@@ -43,10 +51,10 @@ public class GameEngine implements Runnable {
 		mouseManager = new MouseManager();
 		musicHandler = new MusicManager();
 
-		gameState = new GameState(this);
+		gameState = new GameState(this, mode);
 		menuState = new MenuState(this);
-		currentState = menuState;
-
+		currentState = gameState;
+		init();
 	}
 
 	private void init(){
@@ -57,7 +65,7 @@ public class GameEngine implements Runnable {
 		display.getCanvas().addMouseListener(mouseManager);
 		display.getCanvas().addMouseMotionListener(mouseManager);
 
-		Images img = new Images();
+		new Images();
 	}
 
 	public void reStart(){
@@ -74,10 +82,6 @@ public class GameEngine implements Runnable {
 	}
 
 	public void run(){
-
-		//initiallizes everything in order to run without breaking
-		init();
-
 		int fps = 60;
 		double timePerTick = 1000000000 / fps;
 		double delta = 0;
@@ -141,6 +145,9 @@ public class GameEngine implements Runnable {
 		//Draw Here!
 		Graphics2D g2 = (Graphics2D) g.create();
 
+		/*
+		 * Game Render
+		 */
 		if(currentState != null)
 			currentState.render(g);
 

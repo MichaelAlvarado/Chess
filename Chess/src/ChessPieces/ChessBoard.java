@@ -12,6 +12,7 @@ import AI.AIPlayer;
 import ChessPieces.Piece.pieces;
 import ChessPieces.Piece.sides;
 import Main.GameEngine;
+import States.GameState.Mode;
 
 public class ChessBoard {
 
@@ -78,19 +79,17 @@ public class ChessBoard {
 		whitePieces.add(board[4][7]);
 		board[4][0] = new King(this, 4, 0, sides.Black);
 		blackPieces.add(board[4][0]);
-
-
 	}
 
 	public void tick() {
 //		if(WhiteTurn)
-			AIPlayer.move(this);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			AIPlayer.move(this);
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
 				if(board[x][y] != null) {

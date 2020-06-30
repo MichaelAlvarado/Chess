@@ -21,10 +21,11 @@ public class Pawn extends Piece {
 		super.move(x, y);
 		this.moved = true;
 	}
+	
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		if(this.side == sides.White) {
+		if(this.side.equals(sides.White)) {
 			g.drawImage(Images.WPawn, this.x*(width), this.y*(height), (width), (height), null);
 		}
 		else {
