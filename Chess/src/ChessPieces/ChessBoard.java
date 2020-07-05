@@ -11,6 +11,8 @@ import java.util.Arrays;
 import AI.AIPlayer;
 import ChessPieces.Piece.pieces;
 import ChessPieces.Piece.sides;
+import GameFiles.FileManager;
+import Input.KeyManager;
 import Main.GameEngine;
 import States.GameState.Mode;
 
@@ -22,6 +24,7 @@ public class ChessBoard {
 	public ArrayList<Piece> blackPieces;
 	public int x, y ,width, height; //Where the board is going to be at the Windows App
 	private boolean rotation; //If whites are position on the buttom its true
+	public ArrayList<String> gameMoves; //Save all the moves of the current game
 
 	public ChessBoard(int x, int y, int width, int height) {
 		this.x=x;
@@ -31,6 +34,7 @@ public class ChessBoard {
 		board = new Piece[8][8];
 		WhiteTurn = true;//Whites always start first
 		rotation = false;
+		gameMoves = new ArrayList<String>();
 		whitePieces = new ArrayList<Piece>();
 		blackPieces = new ArrayList<Piece>();
 		//Initialize board with starting Chess Position (Index followed by chess 0,0 botom left)
@@ -82,14 +86,10 @@ public class ChessBoard {
 	}
 
 	public void tick() {
-//		if(WhiteTurn)
-//			AIPlayer.move(this);
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		if(KeyManager.keyJustPressed(KeyEvent.VK_ESCAPE)) {
+			FileManager.generateTextFile(gameMoves);
+			System.out.println("Game Saved");
+		}
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
 				if(board[x][y] != null) {
@@ -103,22 +103,7 @@ public class ChessBoard {
 		renderBoard(g);
 		renderPieces(g);
 	} 
-
-	//	public ChessBoard clone() {
-	//		ChessBoard clone = new ChessBoard(x,y,width,height);
-	//		clone.blackPieces = new ArrayList<Piece>();
-	//		clone.whitePieces = new ArrayList<Piece> ();
-	//		for (Piece piece : whitePieces) {
-	//			clone.whitePieces.add(piece.clone(clone));
-	//		}
-	//		for (Piece piece : blackPieces) {
-	//			clone.blackPieces.add(piece.clone(clone));
-	//		}
-	//		clone.WhiteTurn = this.WhiteTurn;
-	//		clone.board = Arrays.copyOf(this.board, this.board.length);
-	//		return clone;
-	//	}
-
+	
 	private void renderBoard (Graphics g) {
 		//Render Tiles
 		for(int x = 0; x < 8; x++) {
@@ -152,8 +137,38 @@ public class ChessBoard {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @return side which is lost the game due checkmate. returns null if there is no checkmate.
+	 */
+	public sides checkmate() {
+		for(Piece piece: blackPieces) {
+			piece.possibleMoves = piece.checkRemoval(piece.possibleMoves());
+			if(!piece.possibleMoves.isEmpty()) {
+				System.out.println("Checkmate blacks loses");
+				return sides.Black;
+			}
+		}
+		for(Piece piece: whitePieces){
+			piece.possibleMoves = piece.checkRemoval(piece.possibleMoves());
+			if(!piece.possibleMoves.isEmpty()) {
+				System.out.println("Checkmate whites loses");
+				return sides.White;
+			}
+		}
+		return null;
+	}
+	
 	private void rotateBoard(){
 		this.rotation = !this.rotation; //Not working because render does not use rotation yet
+	}
+	
+	public void moveSave(Piece piece, Point position1, Point position2) {
+		String move = piece.toString() + ", (" + position1.x + " , " + position1.y + ") , ("
+				+ position2.x + " , " +  position2.y + ") , " + piece.side.toString();
+		
+		gameMoves.add(move);
 	}
 	
 	

@@ -125,6 +125,24 @@ public class AIPlayer {
 		return -risk;
 	}
 	
+	private static int checkmateValue(ChessBoard board, Piece piece, Point move) {
+		Piece temp = board.board[move.x][move.y]; 
+		int x = piece.x;
+		int y = piece.y;
+		piece.move(move.x, move.y);
+		if(board.checkmate() != null) {
+			if(board.checkmate().equals(piece.side)){
+				return -2*valueKing; //losing game
+			}
+			else {
+				return 2*valueKing; //winning game (AI's Goal)
+			}
+		}
+		piece.move(x, y); //return piece to its position
+		board.board[move.x][move.y] = temp; //make sure the piece in move is as it was
+		return 0;
+	}
+	
 //	/**
 //	 * return a new chessBoard with the piece moved
 //	 */

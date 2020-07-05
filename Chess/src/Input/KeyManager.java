@@ -10,7 +10,9 @@ import java.awt.event.KeyListener;
 
 public class KeyManager implements KeyListener {
 
-	private boolean[] keys,justPressed,cantPress;
+	private static boolean[] keys;
+	private static boolean[] justPressed;
+	private boolean[] cantPress;
 	public boolean up=false, down=false, left=false, right=false,pbutt=false,runbutt=false;
 	public boolean upL=false, downL=false, leftL=false, rightL=false,runbuttL=false;
 
@@ -75,7 +77,7 @@ public class KeyManager implements KeyListener {
 
 	}
 
-	public boolean keyJustPressed(int keyCode){
+	public static boolean keyJustPressed(int keyCode){
 		if(keyCode < 0 || keyCode >= keys.length)
 			return false;
 		return justPressed[keyCode];

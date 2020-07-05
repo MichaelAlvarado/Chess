@@ -38,6 +38,7 @@ public abstract class Piece {
 	}
 	public void move(int x, int y)
 	{
+		chess.moveSave(this, new Point(this.x, this.y), new Point(x,y));
 		//make past position null
 		board[this.x][this.y] = null;
 		//move x and y coordinates
@@ -61,11 +62,10 @@ public abstract class Piece {
 		Piece check = checkTest();
 		if(check != null) {
 			System.out.println("CHECK");
-			if((check.side.equals(sides.White) && chess.WhiteTurn )|| (check.side.equals(sides.Black) && !chess.WhiteTurn)) {
+			if((check.side.equals(sides.White) && chess.WhiteTurn ) || (check.side.equals(sides.Black) && !chess.WhiteTurn)) {
 				System.out.println("Cannot make this move");
 			}
 		}
-		
 
 	}
 	public int xPos()
@@ -123,9 +123,9 @@ public abstract class Piece {
 			}
 		}
 	}
+	
 	public abstract ArrayList<Point> possibleMoves();
 		
-	
 	private Piece checkTest() {
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
@@ -157,6 +157,10 @@ public abstract class Piece {
 			board[p.x][p.y] = temp;
 		}
 		return newmoves;
+	}
+	
+	public String toString() {
+		return piece.toString();
 	}
 
 }

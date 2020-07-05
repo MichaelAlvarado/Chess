@@ -1,14 +1,8 @@
 package Main;
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Container;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import Display.DisplayScreen;
 import Input.KeyManager;
@@ -141,9 +135,6 @@ public class GameEngine implements Runnable {
 		g = bs.getDrawGraphics();
 		//Clear Screen
 		g.clearRect(0, 0,  width, height);
-
-		//Draw Here!
-		Graphics2D g2 = (Graphics2D) g.create();
 
 		/*
 		 * Game Render
