@@ -66,7 +66,7 @@ public class Rook extends Piece {
 			moves.add(new Point(this.x, y));
 		}
 		//down movement
-		for(int y = this.y-1; y >0; y--) {
+		for(int y = this.y-1; y >= 0; y--) {
 			if(board[this.x][y] != null) {
 				if(!board[this.x][y].side.equals(this.side)) {
 					moves.add(new Point(this.x, y));//can eat piece

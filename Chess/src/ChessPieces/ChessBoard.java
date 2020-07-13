@@ -142,22 +142,17 @@ public class ChessBoard {
 	 * 
 	 * @return side which is lost the game due checkmate. returns null if there is no checkmate.
 	 */
-	public sides checkmate() {
-		for(Piece piece: blackPieces) {
+	public boolean checkmate(sides side) {
+		ArrayList<Piece> pieces = side.equals(sides.White)? whitePieces: blackPieces;
+		for(Piece piece: pieces) {
 			piece.possibleMoves = piece.checkRemoval(piece.possibleMoves());
 			if(!piece.possibleMoves.isEmpty()) {
-				System.out.println("Checkmate blacks loses");
-				return sides.Black;
+			//	System.out.println("Checkmate blacks loses");
+				return false;
 			}
 		}
-		for(Piece piece: whitePieces){
-			piece.possibleMoves = piece.checkRemoval(piece.possibleMoves());
-			if(!piece.possibleMoves.isEmpty()) {
-				System.out.println("Checkmate whites loses");
-				return sides.White;
-			}
-		}
-		return null;
+		System.out.println("Checkmate " + side.toString() + " loses");
+		return true;
 	}
 	
 	private void rotateBoard(){

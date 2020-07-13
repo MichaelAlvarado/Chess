@@ -47,7 +47,6 @@ public abstract class Piece {
 		//to move graphical
 		this.bound.x = x * width;
 		this.bound.y = y * height;
-		chess.WhiteTurn = !chess.WhiteTurn;
 
 		//move or eat in the board
 		if(board[x][y] != null) {
@@ -55,18 +54,28 @@ public abstract class Piece {
 			chess.whitePieces.remove(board[x][y]);
 			board[x][y] = null; //eat a piece
 		}
-		
+
 		board[x][y] = this;
+		chess.WhiteTurn = !chess.WhiteTurn;
 
 		//Verify check almost works
 		Piece check = checkTest();
 		if(check != null) {
 			System.out.println("CHECK");
-			if((check.side.equals(sides.White) && chess.WhiteTurn ) || (check.side.equals(sides.Black) && !chess.WhiteTurn)) {
+			if((check.side.equals(sides.White) && chess.WhiteTurn) || (check.side.equals(sides.Black) && !chess.WhiteTurn)) {
 				System.out.println("Cannot make this move");
 			}
 		}
+	}
 
+	public void virtualMove(int x, int y) {
+		//make past position null
+		board[this.x][this.y] = null;
+		//move x and y coordinates
+		this.x = x;
+		this.y = y;
+
+		board[x][y] = this;
 	}
 	public int xPos()
 	{
@@ -81,7 +90,7 @@ public abstract class Piece {
 				select();
 				possibleMoves = possibleMoves();
 				possibleMoves = checkRemoval(possibleMoves); 
-//				System.out.println("ticking");
+				//				System.out.println("ticking");
 			}
 			if(selected) {
 				for(Point p: possibleMoves) { //Could be more efficient saving possibleMoves
@@ -101,10 +110,10 @@ public abstract class Piece {
 				g.fillRect(p.x * width, p.y * height, width, height);
 			}
 		}
-//		if(check) {
-//			g.setColor(new Color(200,0,0,140));
-//			g.fillRect(x*width, y*height, width, height);
-//		}
+		//		if(check) {
+		//			g.setColor(new Color(200,0,0,140));
+		//			g.fillRect(x*width, y*height, width, height);
+		//		}
 	}
 	private void select() {
 		//deselect all Pieces and then select this one
@@ -123,9 +132,9 @@ public abstract class Piece {
 			}
 		}
 	}
-	
+
 	public abstract ArrayList<Point> possibleMoves();
-		
+
 	private Piece checkTest() {
 		for(int x = 0; x < 8; x++) {
 			for(int y = 0; y < 8; y++) {
@@ -142,7 +151,7 @@ public abstract class Piece {
 	}
 	public ArrayList<Point> checkRemoval(ArrayList<Point> moves){
 		//this method remove all moves that result in a check on their side
-		ArrayList<Point> newmoves= (ArrayList<Point>) moves.clone(); //this produce lots of trash in memory
+		ArrayList<Point> newmoves = (ArrayList<Point>) moves.clone(); //this produce lots of trash in memory
 		//it will virtually move to all possible position 
 		for(Point p: moves) {
 			Piece temp = board[p.x][p.y]; //safe Piece in the position that will be move
@@ -158,7 +167,7 @@ public abstract class Piece {
 		}
 		return newmoves;
 	}
-	
+
 	public String toString() {
 		return piece.toString();
 	}
