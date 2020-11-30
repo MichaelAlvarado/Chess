@@ -183,7 +183,7 @@ public class screen {
 	}
 
 	private void loadGame(Mode mode) {
-		GameEngine game = new GameEngine("Player vs Player", 1000,1000, mode);
+		GameEngine game = new GameEngine("Player vs Player", 600,600, mode);
 		game.start();
 		frmChess.dispose();
 	}

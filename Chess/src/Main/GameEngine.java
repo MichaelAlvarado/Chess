@@ -1,13 +1,13 @@
 package Main;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 import Display.DisplayScreen;
 import Input.KeyManager;
 import Input.MouseManager;
-import Input.MusicManager;
+import Input.SoundManager;
 import States.GameState;
 import States.GameState.Mode;
 import States.MenuState;
@@ -27,9 +27,9 @@ public class GameEngine implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	//Managers
-	public KeyManager keyManager;
-	public MouseManager mouseManager;
-	public MusicManager musicHandler;
+	public static KeyManager keyManager;
+	public static MouseManager mouseManager;
+	public static SoundManager soundHandler;
 	//State
 	public State currentState; //State currently at
 	public State gameState;
@@ -43,7 +43,7 @@ public class GameEngine implements Runnable {
 
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
-		musicHandler = new MusicManager();
+		soundHandler = new SoundManager();
 
 		gameState = new GameState(this, mode);
 		menuState = new MenuState(this);
@@ -60,6 +60,8 @@ public class GameEngine implements Runnable {
 		display.getCanvas().addMouseMotionListener(mouseManager);
 
 		new Images();
+		soundHandler.addAudio("background");
+		soundHandler.startAudio("background");
 	}
 
 	public void reStart(){
@@ -115,8 +117,8 @@ public class GameEngine implements Runnable {
 		//checks for key types and manages them
 		keyManager.tick();
 
-		if(musicHandler.ended()){
-			//musicHandler.restartBackground();
+		if(KeyManager.keyJustPressed(KeyEvent.VK_M)) {
+			soundHandler.soundToggle();
 		}
 
 		//game states are the menus
@@ -164,8 +166,8 @@ public class GameEngine implements Runnable {
 		return keyManager;
 	}
 
-	public MusicManager getMusicHandler() {
-		return musicHandler;
+	public SoundManager getMusicHandler() {
+		return soundHandler;
 	}
 
 

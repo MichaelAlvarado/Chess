@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import ChessPieces.Piece.pieces;
 import Input.MouseManager;
+import Main.GameEngine;
 
 public abstract class Piece {
 
@@ -66,6 +67,7 @@ public abstract class Piece {
 				System.out.println("Cannot make this move");
 			}
 		}
+		GameEngine.soundHandler.play("chessMove2");
 	}
 
 	public void virtualMove(int x, int y) {
